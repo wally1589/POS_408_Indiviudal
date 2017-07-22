@@ -1,0 +1,152 @@
+Imports System
+Imports System.IO
+Imports System.Text
+
+Public Class Form1
+
+
+
+    Private NumberLimit As Boolean
+
+    Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load, MyBase.Click, Button1.Click
+        Dim file As System.IO.StreamWriter
+        file = My.Computer.FileSystem.OpenTextFileWriter("test.txt", True)
+        file.Write("asdasdasd")
+        file.Close()
+
+    End Sub
+
+    Private Sub btnLWasher_Click(sender As Object, e As EventArgs) Handles btnLWasher.Click
+        Me.lbl_app.Text = " Laundry Washer "
+        Me.lbl_needed.Text = " Gallons Used "
+        Me.lbl_kwh.Text = " Price Per Gallon "
+    End Sub
+
+    Private Sub BtnRefrigerator_Click(sender As Object, e As EventArgs) Handles BtnRefrigerator.Click
+        Me.lbl_app.Text = " Refrigerator "
+    End Sub
+
+    Private Sub btnTV_Click(sender As Object, e As EventArgs) Handles btnTV.Click
+        Me.lbl_app.Text = " TV "
+    End Sub
+
+    Private Sub btnSH_Click(sender As Object, e As EventArgs) Handles btnSH.Click
+        Me.lbl_app.Text = " Space Heater "
+    End Sub
+
+    Private Sub btnFan_Click(sender As Object, e As EventArgs) Handles btnFan.Click
+        Me.lbl_app.Text = " Fan "
+    End Sub
+
+    Private Sub btnDryer_Click(sender As Object, e As EventArgs) Handles btnDryer.Click
+        Me.lbl_app.Text = " Dryer "
+    End Sub
+
+    Private Sub btnOven_Click(sender As Object, e As EventArgs) Handles btnOven.Click
+        Me.lbl_app.Text = " Oven "
+    End Sub
+
+    Private Sub btn_calculate_Click(sender As Object, e As EventArgs) Handles btn_calculate.Click
+        Dim intNum1 As Double
+        Dim intNum2 As Double
+        Dim intNum3 As Double
+        Dim intAns As Double
+        Dim intAns2 As Double
+
+        intNum1 = Val(txt_Hrs.Text)
+        intNum2 = Val(txt_needed.Text)
+        intNum3 = Val(txt_perHr.Text)
+
+
+        intAns = intNum2 * intNum3
+        intAns2 = intAns * intNum1
+
+        Me.lbl_distotal.Text = intAns2
+        Me.lbl_cphkw.Text = intAns
+
+    End Sub
+
+
+    'only numbers are allowed
+
+    Private Sub txt_needed_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txt_needed.KeyDown
+        If e.KeyCode = Keys.Back Then
+            NumberLimit = True
+        Else
+            NumberLimit = False
+        End If
+    End Sub
+
+    Private Sub txt_needed_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txt_needed.KeyPress
+        If NumberLimit = False Then
+            Dim allowedChars As String = "0123456789"
+            If allowedChars.IndexOf(e.KeyChar) = -1 Then
+                e.Handled = True
+            End If
+        End If
+
+    End Sub
+
+
+    Private Sub txt_perHR_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txt_perHr.KeyDown
+        If e.KeyCode = Keys.Back Then
+            NumberLimit = True
+        Else
+            NumberLimit = False
+        End If
+    End Sub
+
+    Private Sub txt_perHR_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txt_perHr.KeyPress
+        If NumberLimit = False Then
+            Dim allowedChars As String = "0123456789"
+            If allowedChars.IndexOf(e.KeyChar) = -1 Then
+                e.Handled = True
+            End If
+        End If
+
+    End Sub
+
+
+    Private Sub txt_Hrs_KeyDown(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyEventArgs) Handles txt_Hrs.KeyDown
+        If e.KeyCode = Keys.Back Then
+            NumberLimit = True
+        Else
+            NumberLimit = False
+        End If
+    End Sub
+
+    Private Sub txt_Hrs_KeyPress(ByVal sender As Object, ByVal e As System.Windows.Forms.KeyPressEventArgs) Handles txt_Hrs.KeyPress
+
+        If NumberLimit = False Then
+
+            Dim allowedChars As String = "0123456789"
+            If allowedChars.IndexOf(e.KeyChar) = -1 Then
+                e.Handled = True
+
+            End If
+
+        End If
+
+    End Sub
+
+    Private Sub txt_Hrs_TextChanged(sender As Object, e As EventArgs) Handles txt_Hrs.TextChanged
+        If txt_Hrs.TextLength > 0 Then
+            If Convert.ToInt32(txt_Hrs.Text.Substring(0, 1)) > 2 Then
+                Dim title = "Input Error"
+                MsgBox(" Number Too Large ", , title)
+
+            ElseIf Convert.ToInt32(txt_Hrs.Text) > 24 Then
+
+                Dim title = "Input Error"
+                MsgBox(" Enter a number less that 24", , title)
+            End If
+        End If
+    End Sub
+
+    Private Sub TextBox1_TextChanged(sender As Object, e As EventArgs) Handles TextBox1.TextChanged
+
+    End Sub
+
+
+End Class
+
